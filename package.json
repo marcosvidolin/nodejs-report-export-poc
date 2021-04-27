@@ -1,0 +1,20 @@
+{
+  "name": "nodejs-report-export-poc",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "local": "nodemon ./src/server.js"
+  },
+  "repository": "https://github.com/marcosvidolin/nodejs-report-export-poc.git",
+  "author": "Marcos Vidolin <marcosvidolin@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "amqplib": "^0.7.1",
+    "exceljs": "^4.2.1",
+    "express": "^4.17.1",
+    "redis": "^3.1.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
