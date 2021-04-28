@@ -1,6 +1,5 @@
 version: "3.2"
 services:
-  
   rabbitmq:
     image: rabbitmq:3-management-alpine
     container_name: 'rabbitmq'
@@ -10,9 +9,15 @@ services:
     volumes:
         - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
         - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
-
   redis:
     image: "redis:alpine"
     hostname: redis
     ports:
       - "6379:6379"
+  api:
+    build: .
+    ports:
+      - "9000:9000"
+    depends_on:
+      - "redis"
+      - "rabbitmq"
