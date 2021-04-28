@@ -5,7 +5,7 @@ const redis = require('redis');
 const {createWorkbook} = require('./excel');
 
 const port = 9000;
-const client = redis.createClient(6379, '127.0.0.1', {'return_buffers': true});
+const client = redis.createClient(6379, 'redis', {'return_buffers': true});
 
 client.on("error", function(error) {
   console.error(error);
