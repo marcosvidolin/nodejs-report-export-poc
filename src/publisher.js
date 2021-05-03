@@ -1,26 +1,29 @@
 const amqp = require('amqplib/callback_api');
 
-amqp.connect('amqp://rabbitmq', function(error0, connection) {
-    if (error0) {
-        throw error0;
-    }
-    connection.createChannel(function(error1, channel) {
-        if (error1) {
-            throw error1;
-        }
+module.exports = {
+    publish: (msg) => {
+        amqp.connect('amqp://rabbitmq', function(error0, connection) {
+            if (error0) {
+                throw error0;
+            }
+            connection.createChannel(function(error1, channel) {
+                if (error1) {
+                    throw error1;
+                }
 
-        var queue = 'hello';
-        var msg = 'Hello World!';
+                var queue = 'export-xpto';
 
-        channel.assertQueue(queue, {
-            durable: false
+                channel.assertQueue(queue, {
+                    durable: false
+                });
+                channel.sendToQueue(queue, Buffer.from(msg));
+
+                console.log(" [x] Sent %s", msg);
+            });
+            setTimeout(function() {
+                connection.close();
+                process.exit(0);
+            }, 5000);
         });
-        channel.sendToQueue(queue, Buffer.from(msg));
-
-        console.log(" [x] Sent %s", msg);
-    });
-    setTimeout(function() {
-        connection.close();
-        process.exit(0);
-    }, 500);
-});
+    }
+};
