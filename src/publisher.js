@@ -2,7 +2,7 @@ const amqp = require('amqplib/callback_api');
 
 module.exports = {
     publish: (msg) => {
-        amqp.connect('amqp://rabbitmq', function(error0, connection) {
+        amqp.connect('amqp://localhost', function(error0, connection) {
             if (error0) {
                 throw error0;
             }
@@ -20,10 +20,6 @@ module.exports = {
 
                 console.log(" [x] Sent %s", msg);
             });
-            setTimeout(function() {
-                connection.close();
-                process.exit(0);
-            }, 5000);
         });
     }
 };
